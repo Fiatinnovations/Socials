@@ -1,0 +1,1 @@
+<h1 style="text-align: center; margin-top: 250px">Please check your Email Address for further Verification</h1>
