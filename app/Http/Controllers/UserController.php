@@ -11,9 +11,7 @@ use Illuminate\Support\Str;
 class UserController extends Controller
 {
 
-    public function getDashboard(){
-        return view('dashboard');
-    }
+
 
     public function postSignUp(Request $request){
        $this->validate($request, [

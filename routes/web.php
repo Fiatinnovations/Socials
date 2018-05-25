@@ -35,7 +35,7 @@ Route::group(['middleware'=>['web']], function(){
     });
 
     Route::get('/dashboard', [
-        'uses' => 'UserController@getDashboard',
+        'uses' => 'PostsController@getDashboard',
         'as' => 'dashboard',
         'middleware'=>'auth'
     ]);
@@ -48,7 +48,15 @@ Route::group(['middleware'=>['web']], function(){
       'middleware' => 'auth'
    ]);
 
+  Route::get('delete-post/{post_id}', [
+      'uses' => 'PostsController@getDelete',
+      'as' => 'deletepost',
+      'middleware' => 'auth'
+  ]);
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+
+  Route::get('logout', [
+     'uses'=> 'PostsController@logOut',
+     'as' => 'logout'
+  ]);

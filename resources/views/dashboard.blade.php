@@ -46,7 +46,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-alerts">
                             <li><a href="#">
-                                    <div><em class="fa fa-envelope"></em> 1 New Message
+                                    <div><em class="fa fa-envelope"></em> Profile
                                         <span class="pull-right text-muted small">3 mins ago</span></div>
                                 </a></li>
                             <li class="divider"></li>
@@ -56,8 +56,13 @@
                                 </a></li>
                             <li class="divider"></li>
                             <li><a href="#">
-                                    <div><em class="fa fa-user"></em> 5 New Followers
+                                    <div><em class="fa fa-user"></em> 4 New Dislikes
                                         <span class="pull-right text-muted small">4 mins ago</span></div>
+                                </a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">
+                                    <div><em class="fa fa-user"></em> <a href="{{route('logout')}}">Logout</a>
+                                        </div>
                                 </a></li>
                         </ul>
                     </li>
@@ -122,21 +127,24 @@
                    @if($posts)
                         @foreach($posts as $post)
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Pellentesque ut ante in sapien blandit luctus sed ut lacus. </p>
+                        <p>{{$post->body}}</p>
                     </div>
                     <div class="panel-body" style="margin-top: -24px">
                         <p>
-                            <p>Posted By: <span style="color:blue">{{Auth::user()->name}}</span> on Feb 2nd 2018</p>
+                            <p>Posted By: <span style="color:blue">{{$post->user->name}}</span>  {{$post->created_at->diffForHumans()}} </p>
                         </p>
                         <a href="">Like</a>|
                         <a href="">Dislike</a>|
-                        <a href="">Edit</a>|
-                        <a href="">Delete</a>
+                       @if(Auth::user() == $post->user)
+                            <a href="">Edit</a>|
+                            <a href="{{route('deletepost', ['post_id' => $post->id])}}">Delete</a>
+                           @endif
 
                     </div>
                    @endforeach
                     @endif
+
+
 
 
 
