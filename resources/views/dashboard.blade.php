@@ -122,10 +122,11 @@
             </section>
             <section >
                 <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-default">
-                    <header><h4 style="text-align: center; font-weight: 500"> What People are Saying</h4></header>
-                   @if($posts)
+                    @if($posts)
                         @foreach($posts as $post)
+                <div class="panel panel-default" data-postid ={{$post->id}}>
+                    <header><h4 style="text-align: center; font-weight: 500"> What People are Saying</h4></header>
+
                     <div class="panel-body">
                         <p>{{$post->body}}</p>
                     </div>
@@ -133,10 +134,14 @@
                         <p>
                             <p>Posted By: <span style="color:blue">{{$post->user->name}}</span>  {{$post->created_at->diffForHumans()}} </p>
                         </p>
+
+
                         <a href="">Like</a>|
                         <a href="">Dislike</a>|
+
+
                        @if(Auth::user() == $post->user)
-                            <a href="">Edit</a>|
+                            <a href="#" id="editbtn">Edit</a>|
                             <a href="{{route('deletepost', ['post_id' => $post->id])}}">Delete</a>
                            @endif
 
@@ -155,10 +160,37 @@
                 </div>
             </section>
 
-
-
-
         </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="my-modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Post</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form >
+                            <div class="form-group">
+                                <label for="">Edit Post</label>
+                                <textarea class="form-control" id="myPost" name="myPost" rows="5"></textarea>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="saveEdit">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var token = '{{Session::token()}}';
+            var url   = '{{route('edit')}}';
+        </script>
 
 
 

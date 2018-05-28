@@ -60,3 +60,8 @@ Route::group(['middleware'=>['web']], function(){
      'uses'=> 'PostsController@logOut',
      'as' => 'logout'
   ]);
+
+  Route::post('edit', function (\Illuminate\Http\Request $request){
+      return response()->json(['message'=>$request['postId']]);
+
+  })->name('edit');
